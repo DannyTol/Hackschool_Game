@@ -6,6 +6,7 @@ public class StandardEnemy : MonoBehaviour
 {
     public float enemyHealth;
     public float bulletDamage;
+    public float speed;
     public float seePlayerDistance;
     public float timeForNextShot;
     public float timeForNextShotReload;
@@ -14,10 +15,13 @@ public class StandardEnemy : MonoBehaviour
     public GameObject bulletLeftPrefab;
     public Transform shootPoint;
 
+    private bool freeWayRight;
+    private bool freeWayLeft = true;
 
     private void Update()
     {
         SeePlayer();
+        Move();
 
     }
 
@@ -73,6 +77,38 @@ public class StandardEnemy : MonoBehaviour
         else
         {
             Debug.Log("Can´t see Player");
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject)
+        {
+
+            if (collision.gameObject && freeWayLeft == true)
+            {
+                freeWayLeft = false;
+                freeWayRight = true;
+            }
+            else
+            {
+                freeWayRight = false;
+                freeWayLeft = true;
+            }
+        }
+    }
+
+    void Move()
+    {
+        if (freeWayRight == true)
+        {
+            transform.Translate(+speed * Time.deltaTime, 0, 0);
+            freeWayLeft = false;
+        }
+        else if (freeWayLeft == true)
+        {
+            transform.Translate(-speed * Time.deltaTime, 0, 0);
+            freeWayRight = false;
         }
     }
 }

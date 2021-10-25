@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7506510750254635769}
   - component: {fileID: 7506510750254635771}
   - component: {fileID: 7506510750254635770}
+  - component: {fileID: 199920200026979679}
   m_Layer: 0
   m_Name: StandardEnemy
   m_TagString: Enemy
@@ -199,12 +200,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealth: 100
   bulletDamage: 20
+  speed: 0
   seePlayerDistance: 12.5
   timeForNextShot: 0
   timeForNextShotReload: 2
   target: {fileID: 0}
   bulletLeftPrefab: {fileID: 176869856883564726, guid: 536def5e61160f04f895414876adb4a3, type: 3}
   shootPoint: {fileID: 7506510751733107519}
+--- !u!50 &199920200026979679
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7506510750254635772}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &7506510750889519217
 GameObject:
   m_ObjectHideFlags: 0

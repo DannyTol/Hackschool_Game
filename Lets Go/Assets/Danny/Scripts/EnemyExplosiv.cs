@@ -52,11 +52,11 @@ public class EnemyExplosiv : MonoBehaviour
         }
 
         
-        if (collision.gameObject)
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "BigWall")
         {
             //if (seePlayer == false)
             //{
-                if (collision.gameObject && freeWayLeft == true)
+                if (collision.gameObject.tag == "Wall" && freeWayLeft == true || collision.gameObject.tag == "BigWall" && freeWayLeft == true)
                 {
                     freeWayLeft = false;
                     freeWayRight = true;
