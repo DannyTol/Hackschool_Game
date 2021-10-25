@@ -13,6 +13,7 @@ public class StandardEnemy : MonoBehaviour
 
     public GameObject target;
     public GameObject bulletLeftPrefab;
+    public GameObject bulletRightPrefab;
     public Transform shootPoint;
 
     private bool freeWayRight;
@@ -21,7 +22,7 @@ public class StandardEnemy : MonoBehaviour
     private void Update()
     {
         SeePlayer();
-        Move();
+        
 
     }
 
@@ -37,6 +38,21 @@ public class StandardEnemy : MonoBehaviour
             {
                 enemyHealth = 0;
                 Die();
+            }
+        }
+
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "BigWall")
+        {
+            Debug.Log("Enemy collision with Wall");
+            if (collision.gameObject.tag == "Wall" && freeWayLeft == true || collision.gameObject.tag == "BigWall" && freeWayLeft == true)
+            {
+                freeWayLeft = false;
+                freeWayRight = true;
+            }
+            else
+            {
+                freeWayRight = false;
+                freeWayLeft = true;
             }
         }
     }
@@ -65,49 +81,49 @@ public class StandardEnemy : MonoBehaviour
         float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position,transform.position);
 
         Timer();
-        
+
         if (distance <= seePlayerDistance && timeForNextShot == 0)
         {
             Debug.Log("See Player");
-            GameObject newBullet = Instantiate(bulletLeftPrefab);
-            newBullet.transform.position = shootPoint.transform.position;
-            Destroy(newBullet, 1.5f);
-            timeForNextShot = timeForNextShotReload;
+            if (transform.position.x > target.transform.position.x)
+            {
+                transform.rotation = Quaternion.LookRotation(Vector3.forward);
+
+                GameObject newBullet = Instantiate(bulletLeftPrefab);
+                newBullet.transform.position = shootPoint.transform.position;
+                Destroy(newBullet, 1.5f);
+                timeForNextShot = timeForNextShotReload;
+            }
+            if(transform.position.x < target.transform.position.x)
+            {
+                transform.rotation = Quaternion.LookRotation(Vector3.back);
+
+                GameObject newBullet = Instantiate(bulletRightPrefab);
+                newBullet.transform.position = shootPoint.transform.position;
+                Destroy(newBullet, 1.5f);
+                timeForNextShot = timeForNextShotReload;
+            }
         }
-        else
+        if (distance >= seePlayerDistance)
         {
             Debug.Log("Can´t see Player");
+            Move();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject)
-        {
-
-            if (collision.gameObject && freeWayLeft == true)
-            {
-                freeWayLeft = false;
-                freeWayRight = true;
-            }
-            else
-            {
-                freeWayRight = false;
-                freeWayLeft = true;
-            }
-        }
-    }
-
+    // Enemy moves
     void Move()
     {
         if (freeWayRight == true)
         {
-            transform.Translate(+speed * Time.deltaTime, 0, 0);
+            transform.Translate(-speed * Time.deltaTime, 0, 0);
+            transform.rotation = Quaternion.LookRotation(Vector3.back);
             freeWayLeft = false;
         }
         else if (freeWayLeft == true)
         {
             transform.Translate(-speed * Time.deltaTime, 0, 0);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward);
             freeWayRight = false;
         }
     }
