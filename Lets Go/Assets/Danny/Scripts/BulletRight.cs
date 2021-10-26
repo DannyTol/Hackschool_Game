@@ -30,7 +30,7 @@ public class BulletRight : MonoBehaviour
         // Bullet creates Effect and Bullethole when Bullet destroy
         void Die()
         {
-            if (collision.gameObject.tag == "EnemyExplosiv" || collision.gameObject.tag == "Enemy")
+            if (collision.gameObject.tag == "EnemyExplosiv" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyBullet")
             {
                 Destroy(gameObject);
                 GameObject newEffect1 = Instantiate(effect);

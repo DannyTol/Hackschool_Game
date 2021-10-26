@@ -8,7 +8,12 @@ public class EnemyBulletLeft : MonoBehaviour
     public float bulletSpeed;
 
     private float damage;
-   
+
+
+    private void Awake()
+    {
+        gameObject.tag = "EnemyBullet";
+    }
 
     void Update()
     {

@@ -10,6 +10,12 @@ public class EnemyBulletRight : MonoBehaviour
     private float damage;
 
 
+    private void Awake()
+    {
+        gameObject.tag = "EnemyBullet";
+    }
+
+
     void Update()
     {
         transform.position += new Vector3(+bulletSpeed * Time.deltaTime, 0);
