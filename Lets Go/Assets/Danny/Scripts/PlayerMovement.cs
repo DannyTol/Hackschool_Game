@@ -20,7 +20,9 @@ public class PlayerMovement : MonoBehaviour
    
 
     private bool dirForward = true;
+    private bool lookToForward;
     private float moveSpeed;
+
 
     private void Update()
     {
@@ -36,31 +38,30 @@ public class PlayerMovement : MonoBehaviour
     // PlayerMovement
     private void Move()
     {
-
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetMouseButton(1)&& Input.GetKey(KeyCode.A))
         {
             moveSpeed = speed;
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-            transform.rotation = Quaternion.LookRotation(Vector3.back);
-            dirForward = false;
-            
-            if (Input.GetKeyUp(KeyCode.A))
-            {
-                moveSpeed = 0;
-            }
-
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.A))
+        {  
+            moveSpeed = speed;
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            transform.rotation = Quaternion.LookRotation(Vector3.back);
+            dirForward = false;            
+        }
+
+        if (Input.GetMouseButton(1)&& Input.GetKey(KeyCode.D))
         {
             moveSpeed = speed;
             rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
+        }  
+        else if (Input.GetKey(KeyCode.D))
+        {    
+            moveSpeed = speed;
+            rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
             transform.rotation = Quaternion.LookRotation(Vector3.forward);
-            dirForward = true;
-            
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                moveSpeed = 0;
-            }
+            dirForward = true;           
         }
     }
 
