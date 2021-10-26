@@ -29,6 +29,21 @@ public class PlattformUpAndDown : MonoBehaviour
         }
     }
 
+    // Plattform Move Direction by collision with PlattformStop
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlattformStop" && upFree == true)
+        {
+            upFree = false;
+            downFree = true;
+        }
+        else
+        {
+            upFree = true;
+            downFree = false;
+        }
+    }
+
     // Plattform moves in free direction(up or down)
     private void PlattformMove()
     {

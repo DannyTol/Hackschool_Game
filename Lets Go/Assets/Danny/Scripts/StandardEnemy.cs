@@ -18,6 +18,7 @@ public class StandardEnemy : MonoBehaviour
 
     private bool freeWayRight;
     private bool freeWayLeft = true;
+    
 
     private void Update()
     {
@@ -55,6 +56,8 @@ public class StandardEnemy : MonoBehaviour
                 freeWayLeft = true;
             }
         }
+
+        
     }
 
     void Die()
@@ -79,8 +82,10 @@ public class StandardEnemy : MonoBehaviour
     void SeePlayer()
     {
         float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position,transform.position);
-
+        
         Timer();
+
+         
 
         if (distance <= seePlayerDistance && timeForNextShot == 0)
         {

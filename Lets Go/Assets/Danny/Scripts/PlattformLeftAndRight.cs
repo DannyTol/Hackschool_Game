@@ -29,6 +29,22 @@ public class PlattformLeftAndRight : MonoBehaviour
         }
     }
 
+    // Plattform Move Direction by collision with PlattformStop
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.tag == "PlattformStop" && rightFree == true)
+        {
+            rightFree = false;
+            leftFree = true;
+        }
+        else
+        {
+            rightFree = true;
+            leftFree = false;
+        }
+    }
+
     // Plattform moeves in free direction (left or right)
     private void PlattformMove()
     {
