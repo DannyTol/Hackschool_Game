@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class PlantEnemy : MonoBehaviour
 {
+    [Space]
     public float enemyHealth;
     public float getBulletDamage;
+    
+    [Space]
     public int coinsToPlayer;
     public int pointsToPlayer;
+    
+    [Space]
     public float distanceToPlayer;
     public float startShoot;
     public float nextShoot;
 
+    [Space]
     public GameObject target;
+    
+    [Space]
     public GameObject PlantEnemyBulletLeftPrefab;
     public GameObject PlantEnemyBulletRightPrefab;
     public Transform shootPoint;

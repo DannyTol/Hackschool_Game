@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Space]
     public float playerHealth;
     public float speed;
     public float jumpVelocity;
+    
+    [Space]
     public int coins;
     public int points;
     public int mediKit;
 
+    [Space]
     public bool isGrounded;
 
     public Rigidbody2D rb;
+    [Space]
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
     public Transform shootPoint;

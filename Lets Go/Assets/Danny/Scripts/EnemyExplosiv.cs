@@ -6,20 +6,25 @@ public class EnemyExplosiv : MonoBehaviour
 {
     public float enemyHealth;
     public float playerBulletDamage;
+    
+    [Space]
     public int pointsToPlayer;
     public int coinsToPlayer;
+    
+    [Space]
     public float enemySpeed;
     public float enemyHuntSpeed;
     public float targetDistance;
 
+    [Space]
     public GameObject target;
-
-    private Rigidbody2D rb;
-
-    private bool wall;
+    [Space]
+    public GameObject effectPrefab;
+  
     private bool freeWayRight;
     private bool freeWayLeft = true;
     private bool seePlayer = false;
+    private bool canNotSeePlayer;
     
     void Update()
     {
@@ -85,20 +90,35 @@ public class EnemyExplosiv : MonoBehaviour
         target.GetComponent<PlayerMovement>().coins += coinsToPlayer;
         Debug.Log("EnemyExplosiv died");
         Destroy(gameObject);
+        GameObject newEffect = Instantiate(effectPrefab);
+        newEffect.transform.position = transform.position;
+        Destroy(newEffect,0.25f);
     }
 
 
     // EnemyExplosiv moves to Player if distance is right
     void GoToPlayer()
     {
+        GameObject BigWall = GameObject.FindGameObjectWithTag("BigWall");
         float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position, transform.position);
-        
-        if (distance <= targetDistance)
+        float distanceWall = Vector3.Distance(BigWall.transform.position, transform.position);
+
+        // Enemy checks if there is a Wall between him and Player
+        if(distanceWall < distance)
+        {
+            canNotSeePlayer = true;
+        }
+        else
+        {
+            canNotSeePlayer = false;
+        }
+
+        if (distance <= targetDistance && canNotSeePlayer == false)
         {
             seePlayer = true;                
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, enemyHuntSpeed * Time.deltaTime);
         }
-        else if (distance > targetDistance)
+        else if (distance > targetDistance || canNotSeePlayer == true)
         {
             //seePlayer = false;
             EnemyMove();

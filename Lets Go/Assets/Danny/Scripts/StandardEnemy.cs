@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class StandardEnemy : MonoBehaviour
 {
+    [Space]
     public float enemyHealth;
     public float bulletDamage;
     public float speed;
+    
+    [Space]
     public float seePlayerDistance;
     public float timeForNextShot;
     public float timeForNextShotReload;
 
+    [Space]
     public GameObject target;
+    [Space]
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
     public Transform shootPoint;
 
     private bool freeWayRight;
     private bool freeWayLeft = true;
+    private bool seePlayer;
     
 
     private void Update()
@@ -78,16 +84,28 @@ public class StandardEnemy : MonoBehaviour
         }
     }
 
-    // If Enemy see Player and Timer is done, Enemy will shoot
+    // If Enemy see Player and if Timer is done, Enemy will shoot
     void SeePlayer()
     {
+        GameObject BigWall = GameObject.FindGameObjectWithTag("BigWall");
         float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position,transform.position);
-        
+        float distanceWall = Vector3.Distance(BigWall.transform.position, transform.position);
+       
         Timer();
 
+        // Enemy checks if there is a Wall between him and Player
+         if (distanceWall < distance)
+         {
+            Debug.Log("Wall is in front of Player");
+            seePlayer = false;
+         }
+        else
+        {
+            Debug.Log("No Wall infront of Player");
+            seePlayer = true;
+        }
          
-
-        if (distance <= seePlayerDistance && timeForNextShot == 0)
+        if (distance <= seePlayerDistance && timeForNextShot == 0 && seePlayer == true)
         {
             Debug.Log("See Player");
             if (transform.position.x > target.transform.position.x)
@@ -109,7 +127,7 @@ public class StandardEnemy : MonoBehaviour
                 timeForNextShot = timeForNextShotReload;
             }
         }
-        if (distance >= seePlayerDistance)
+        if (distance >= seePlayerDistance || seePlayer == false)
         {
             Debug.Log("Can´t see Player");
             Move();

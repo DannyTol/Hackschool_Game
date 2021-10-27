@@ -129,8 +129,9 @@ MonoBehaviour:
   coinsToPlayer: 5
   enemySpeed: 1.5
   enemyHuntSpeed: 3.5
-  targetDistance: 6
+  targetDistance: 9.5
   target: {fileID: 2651417825596110350, guid: 3bdad179e360ffb44b74dea52676632b, type: 3}
+  effectPrefab: {fileID: 535837318627290666, guid: 4f27fc2343401974aa85671e309ccad8, type: 3}
 --- !u!50 &899628238871073350
 Rigidbody2D:
   serializedVersion: 4

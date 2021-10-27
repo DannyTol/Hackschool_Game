@@ -7,7 +7,7 @@ public class Coins : MonoBehaviour
     public int coinsToPlayer;
     public float rotationSpeed;
 
-
+    [Space]
     public GameObject target;
 
     // coin rotates
