@@ -248,8 +248,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: -2.8158932, y: 0.24613369, z: -0.00005}
-    m_Extent: {x: 2.8158932, y: 0.5246808, z: 0.00005}
+    m_Center: {x: -4.256852, y: 0.24613374, z: 0}
+    m_Extent: {x: 1.3749343, y: 0.52468085, z: 0}
 --- !u!4 &19432243
 Transform:
   m_ObjectHideFlags: 0
@@ -435,8 +435,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: -2.8158932, y: 0.24613369, z: -0.00005}
-    m_Extent: {x: 2.8158932, y: 0.5246808, z: 0.00005}
+    m_Center: {x: -4.256852, y: 0.24613374, z: 0}
+    m_Extent: {x: 1.3749343, y: 0.52468085, z: 0}
 --- !u!4 &103874332
 Transform:
   m_ObjectHideFlags: 0
@@ -696,8 +696,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: -2.8158932, y: 0.24613369, z: -0.00005}
-    m_Extent: {x: 2.8158932, y: 0.5246808, z: 0.00005}
+    m_Center: {x: -4.256852, y: 0.24613374, z: 0}
+    m_Extent: {x: 1.3749343, y: 0.52468085, z: 0}
 --- !u!4 &197938811
 Transform:
   m_ObjectHideFlags: 0
@@ -2183,6 +2183,22 @@ PrefabInstance:
     - target: {fileID: 506069704531901909, guid: 70f54db2dd102ea49a6fd72d5a165e56, type: 3}
       propertyPath: m_DynamicOccludee
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 506069704531901909, guid: 70f54db2dd102ea49a6fd72d5a165e56, type: 3}
+      propertyPath: m_LocalAABB.m_Center.y
+      value: 0.34923112
+      objectReference: {fileID: 0}
+    - target: {fileID: 506069704531901909, guid: 70f54db2dd102ea49a6fd72d5a165e56, type: 3}
+      propertyPath: m_LocalAABB.m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 506069704531901909, guid: 70f54db2dd102ea49a6fd72d5a165e56, type: 3}
+      propertyPath: m_LocalAABB.m_Extent.y
+      value: 1.6552014
+      objectReference: {fileID: 0}
+    - target: {fileID: 506069704531901909, guid: 70f54db2dd102ea49a6fd72d5a165e56, type: 3}
+      propertyPath: m_LocalAABB.m_Extent.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70f54db2dd102ea49a6fd72d5a165e56, type: 3}
