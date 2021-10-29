@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
 
     public Rigidbody2D rb;
+    public Animator anim;
     [Space]
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
@@ -28,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
     private bool lookToForward;
     private float moveSpeed;
 
+    private void Start()
+    {
+        anim.SetBool("isWalking", false);
+    }
 
     private void Update()
     {
@@ -53,8 +58,14 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = speed;
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             transform.rotation = Quaternion.LookRotation(Vector3.back);
-            dirForward = false;            
+            dirForward = false;
+            anim.SetBool("isWalking",true);
         }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
+
 
         if (Input.GetMouseButton(1)&& Input.GetKey(KeyCode.D))
         {
@@ -66,8 +77,13 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = speed;
             rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
             transform.rotation = Quaternion.LookRotation(Vector3.forward);
-            dirForward = true;           
+            dirForward = true;
+            anim.SetBool("isWalking", true);
+            
         }
+        
+
+
     }
 
     // Player Shoot 
