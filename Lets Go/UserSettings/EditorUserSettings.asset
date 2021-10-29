@@ -9,9 +9,18 @@ EditorUserSettings:
       value: 22424703114646680e0b0227036c72111f19563f22213229
       flags: 0
     RecentlyUsedScenePath-1:
+<<<<<<< HEAD
       value: 22424703114646680e0b0227036c6c0417050c07292685ec633c133af6f9
       flags: 0
     RecentlyUsedScenePath-2:
+=======
+<<<<<<< HEAD
+      value: 22424703114646680e0b0227036c6c0417050c07292685ec633c133af6f9
+      flags: 0
+    RecentlyUsedScenePath-2:
+=======
+>>>>>>> 9e43c0317054c37cea27efa2bb8e7f655a68ccdd
+>>>>>>> parent of 22d9259 (Delete Lets Go/UserSettings directory)
       value: 22424703114646680e0b0227036c73150012147b623d28393930
       flags: 0
     vcSharedLogLevel:
