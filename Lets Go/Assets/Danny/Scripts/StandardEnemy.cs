@@ -48,7 +48,24 @@ public class StandardEnemy : MonoBehaviour
                 enemyHealth = 0;
                 Die();
             }
-        }  
+        }
+        
+        
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "BigWall")
+        {
+            Debug.Log("Enemy collision with Wall");
+            if (collision.gameObject.tag == "Wall" && freeWayLeft == true || collision.gameObject.tag == "BigWall" && freeWayLeft == true)
+            {
+                freeWayLeft = false;
+                freeWayRight = true;
+            }
+            else
+            {
+                freeWayRight = false;
+                freeWayLeft = true;
+            }
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -97,7 +114,8 @@ public class StandardEnemy : MonoBehaviour
   
         if (distance <= seePlayerDistance && timeForNextShot == 0)
         {
-            speed = 0;
+            seePlayer = true;
+
             Debug.Log("See Player");
             if (transform.position.x > target.transform.position.x)
             {
@@ -118,7 +136,7 @@ public class StandardEnemy : MonoBehaviour
                 timeForNextShot = timeForNextShotReload;
             }
         }
-        if (distance >= seePlayerDistance || seePlayer == false)
+        else if (distance >= seePlayerDistance || seePlayer == false)
         {
             speed = movespeed;
             Debug.Log("Can´t see Player");

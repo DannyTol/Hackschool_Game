@@ -49,27 +49,29 @@ public class PlayerMovement : MonoBehaviour
     // PlayerMovement
     private void Move()
     {
-        if (Input.GetMouseButton(1)&& Input.GetKey(KeyCode.A))
+        if (Input.GetMouseButton(1) && Input.GetKey(KeyCode.A))
         {
             moveSpeed = speed;
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             anim.SetBool("isWalkingBack", true);
 
-            
+
         }
         else if (Input.GetKey(KeyCode.A))
-        {  
+        {
             moveSpeed = speed;
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             transform.rotation = Quaternion.LookRotation(Vector3.back);
             dirForward = false;
-            anim.SetBool("isWalking",true);
+            anim.SetBool("isWalking", true);
+        }
+        else if (Input.GetMouseButton(1) && Input.GetKey(KeyCode.D) && dirForward == true)
+        {
+            moveSpeed = speed;
+            rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
+            anim.SetBool("isWalking", true);
 
-            if (Input.GetKeyUp(KeyCode.A))
-            {
-                anim.SetBool("isWalking", false);
-            }
-        }   
+        }
         else
         {
             anim.SetBool("isWalking", false);
@@ -90,13 +92,14 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
             transform.rotation = Quaternion.LookRotation(Vector3.forward);
             dirForward = true;
+            anim.SetBool("isWalking", true);     
+        }
+        else if(Input.GetMouseButton(1)&&Input.GetKey(KeyCode.A)&& dirForward == false)
+        {
+            moveSpeed = speed;
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             anim.SetBool("isWalking", true);
 
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                anim.SetBool("IsWalking", false);
-            }
-            
         }
         
 
