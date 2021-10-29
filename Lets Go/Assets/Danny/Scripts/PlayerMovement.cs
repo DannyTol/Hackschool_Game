@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody2D rb;
     public Animator anim;
+    
     [Space]
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
@@ -55,7 +56,10 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             anim.SetBool("isWalkingBack", true);
 
-
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                anim.SetBool("isWalkingBack", false);
+            }
         }
         else if (Input.GetKey(KeyCode.A))
         {
@@ -85,6 +89,10 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
             anim.SetBool("isWalkingBack", true);
 
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                anim.SetBool("isWalkingBack", false);
+            }
         }  
         else if (Input.GetKey(KeyCode.D))
         {    
@@ -101,9 +109,6 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isWalking", true);
 
         }
-        
-
-
     }
 
     // Player Shoot 
