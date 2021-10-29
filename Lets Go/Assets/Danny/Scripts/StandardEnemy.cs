@@ -8,6 +8,7 @@ public class StandardEnemy : MonoBehaviour
     public float enemyHealth;
     public float bulletDamage;
     public float speed;
+
     
     [Space]
     public float seePlayerDistance;
@@ -24,6 +25,7 @@ public class StandardEnemy : MonoBehaviour
     private bool freeWayRight;
     private bool freeWayLeft = true;
     private bool seePlayer;
+    private float movespeed = 1.5f;
     
 
     private void Update()
@@ -46,8 +48,11 @@ public class StandardEnemy : MonoBehaviour
                 enemyHealth = 0;
                 Die();
             }
-        }
+        }  
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "BigWall")
         {
             Debug.Log("Enemy collision with Wall");
@@ -62,8 +67,6 @@ public class StandardEnemy : MonoBehaviour
                 freeWayLeft = true;
             }
         }
-
-        
     }
 
     void Die()
@@ -87,26 +90,14 @@ public class StandardEnemy : MonoBehaviour
     // If Enemy see Player and if Timer is done, Enemy will shoot
     void SeePlayer()
     {
-        GameObject BigWall = GameObject.FindGameObjectWithTag("BigWall");
-        float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position,transform.position);
-        float distanceWall = Vector3.Distance(BigWall.transform.position, transform.position);
+        
+        float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position,transform.position);    
        
         Timer();
-
-        // Enemy checks if there is a Wall between him and Player
-         if (distanceWall < distance)
-         {
-            Debug.Log("Wall is in front of Player");
-            seePlayer = false;
-         }
-        else
+  
+        if (distance <= seePlayerDistance && timeForNextShot == 0)
         {
-            Debug.Log("No Wall infront of Player");
-            seePlayer = true;
-        }
-         
-        if (distance <= seePlayerDistance && timeForNextShot == 0 && seePlayer == true)
-        {
+            speed = 0;
             Debug.Log("See Player");
             if (transform.position.x > target.transform.position.x)
             {
@@ -129,6 +120,7 @@ public class StandardEnemy : MonoBehaviour
         }
         if (distance >= seePlayerDistance || seePlayer == false)
         {
+            speed = movespeed;
             Debug.Log("Can´t see Player");
             Move();
         }
