@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         anim.SetBool("isWalking", false);
+        anim.SetBool("isJumping", false);
     }
 
     private void Update()
@@ -52,6 +53,9 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = speed;
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            anim.SetBool("isWalkingBack", true);
+
+            
         }
         else if (Input.GetKey(KeyCode.A))
         {  
@@ -60,10 +64,16 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.back);
             dirForward = false;
             anim.SetBool("isWalking",true);
-        }
+
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                anim.SetBool("isWalking", false);
+            }
+        }   
         else
         {
             anim.SetBool("isWalking", false);
+            anim.SetBool("isWalkingBack", false);
         }
 
 
@@ -71,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = speed;
             rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
+            anim.SetBool("isWalkingBack", true);
+
         }  
         else if (Input.GetKey(KeyCode.D))
         {    
@@ -79,6 +91,11 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(Vector3.forward);
             dirForward = true;
             anim.SetBool("isWalking", true);
+
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                anim.SetBool("IsWalking", false);
+            }
             
         }
         
@@ -113,6 +130,17 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.up * jumpVelocity;
             isGrounded = false;
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isWalkingBack", false);
+            anim.SetBool("isJumping", true);
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            anim.SetBool("isJumping", true);
+        }
+        else
+        {
+            anim.SetBool("isJumping", false);
         }
     }
 
@@ -137,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Plattform")
         {
             transform.parent = collision.transform;
+            Debug.Log("Collision with Plattform");
         }
     }
 
@@ -146,6 +175,7 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Plattform")
         {
             transform.parent = null;
+            Debug.Log("Collision Exit Plattform");
         }
     }
 
