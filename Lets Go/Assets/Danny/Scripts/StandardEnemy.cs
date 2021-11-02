@@ -8,6 +8,11 @@ public class StandardEnemy : MonoBehaviour
     public float enemyHealth;
     public float bulletDamage;
     public float speed;
+
+    [Space]
+    public int coinsToPlayer;
+    public int pointsToPlayer;
+
     
     [Space]
     public float seePlayerDistance;
@@ -16,6 +21,7 @@ public class StandardEnemy : MonoBehaviour
 
     [Space]
     public GameObject target;
+
     [Space]
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
@@ -24,6 +30,7 @@ public class StandardEnemy : MonoBehaviour
     private bool freeWayRight;
     private bool freeWayLeft = true;
     private bool seePlayer;
+    private float movespeed = 1.5f;
     
 
     private void Update()
@@ -47,7 +54,8 @@ public class StandardEnemy : MonoBehaviour
                 Die();
             }
         }
-
+        
+        
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "BigWall")
         {
             Debug.Log("Enemy collision with Wall");
@@ -63,11 +71,31 @@ public class StandardEnemy : MonoBehaviour
             }
         }
 
-        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "BigWall")
+        {
+            Debug.Log("Enemy collision with Wall");
+            if (collision.gameObject.tag == "Wall" && freeWayLeft == true || collision.gameObject.tag == "BigWall" && freeWayLeft == true)
+            {
+                freeWayLeft = false;
+                freeWayRight = true;
+            }
+            else
+            {
+                freeWayRight = false;
+                freeWayLeft = true;
+            }
+        }
     }
 
     void Die()
     {
+        target.GetComponent<PlayerMovement>().coins += coinsToPlayer;
+        target.GetComponent<PlayerMovement>().points += pointsToPlayer;
+        Debug.Log("StandardEnemy died");
         Destroy(gameObject);
     }
 
@@ -87,26 +115,16 @@ public class StandardEnemy : MonoBehaviour
     // If Enemy see Player and if Timer is done, Enemy will shoot
     void SeePlayer()
     {
-        GameObject BigWall = GameObject.FindGameObjectWithTag("BigWall");
-        float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position,transform.position);
-        float distanceWall = Vector3.Distance(BigWall.transform.position, transform.position);
+        
+        float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position,transform.position);    
        
         Timer();
-
-        // Enemy checks if there is a Wall between him and Player
-         if (distanceWall < distance)
-         {
-            Debug.Log("Wall is in front of Player");
-            seePlayer = false;
-         }
-        else
+  
+        if (distance <= seePlayerDistance && timeForNextShot == 0)
         {
-            Debug.Log("No Wall infront of Player");
             seePlayer = true;
-        }
-         
-        if (distance <= seePlayerDistance && timeForNextShot == 0 && seePlayer == true)
-        {
+           
+
             Debug.Log("See Player");
             if (transform.position.x > target.transform.position.x)
             {
@@ -116,6 +134,8 @@ public class StandardEnemy : MonoBehaviour
                 newBullet.transform.position = shootPoint.transform.position;
                 Destroy(newBullet, 1.5f);
                 timeForNextShot = timeForNextShotReload;
+                
+                
             }
             if(transform.position.x < target.transform.position.x)
             {
@@ -125,12 +145,16 @@ public class StandardEnemy : MonoBehaviour
                 newBullet.transform.position = shootPoint.transform.position;
                 Destroy(newBullet, 1.5f);
                 timeForNextShot = timeForNextShotReload;
+                
             }
         }
-        if (distance >= seePlayerDistance || seePlayer == false)
+        else if (distance >= seePlayerDistance || seePlayer == false)
         {
+            
+            speed = movespeed;
             Debug.Log("Can´t see Player");
             Move();
+
         }
     }
 
@@ -142,12 +166,14 @@ public class StandardEnemy : MonoBehaviour
             transform.Translate(-speed * Time.deltaTime, 0, 0);
             transform.rotation = Quaternion.LookRotation(Vector3.back);
             freeWayLeft = false;
+           
         }
         else if (freeWayLeft == true)
         {
             transform.Translate(-speed * Time.deltaTime, 0, 0);
             transform.rotation = Quaternion.LookRotation(Vector3.forward);
             freeWayRight = false;
+            
         }
     }
 }

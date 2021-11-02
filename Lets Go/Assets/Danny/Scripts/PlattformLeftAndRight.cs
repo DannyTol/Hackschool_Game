@@ -10,11 +10,6 @@ public class PlattformLeftAndRight : MonoBehaviour
     private bool rightFree = true;
 
 
-    private void Awake()
-    {
-        gameObject.tag = "EnemyBullet";
-    }
-
 
     private void Update()
     {

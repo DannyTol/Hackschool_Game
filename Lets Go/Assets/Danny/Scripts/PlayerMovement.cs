@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
 
     public Rigidbody2D rb;
+    public Animator anim;
+    
     [Space]
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
@@ -28,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
     private bool lookToForward;
     private float moveSpeed;
 
+    private void Start()
+    {
+        anim.SetBool("isWalking", false);
+        anim.SetBool("isJumping", false);
+    }
 
     private void Update()
     {
@@ -43,30 +50,64 @@ public class PlayerMovement : MonoBehaviour
     // PlayerMovement
     private void Move()
     {
-        if (Input.GetMouseButton(1)&& Input.GetKey(KeyCode.A))
+        if (Input.GetMouseButton(1) && Input.GetKey(KeyCode.A))
         {
             moveSpeed = speed;
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            anim.SetBool("isWalkingBack", true);
+
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                anim.SetBool("isWalkingBack", false);
+            }
         }
         else if (Input.GetKey(KeyCode.A))
-        {  
+        {
             moveSpeed = speed;
             rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
             transform.rotation = Quaternion.LookRotation(Vector3.back);
-            dirForward = false;            
+            dirForward = false;
+            anim.SetBool("isWalking", true);
         }
+        else if (Input.GetMouseButton(1) && Input.GetKey(KeyCode.D) && dirForward == true)
+        {
+            moveSpeed = speed;
+            rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
+            anim.SetBool("isWalking", true);
+
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isWalkingBack", false);
+        }
+
 
         if (Input.GetMouseButton(1)&& Input.GetKey(KeyCode.D))
         {
             moveSpeed = speed;
             rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
+            anim.SetBool("isWalkingBack", true);
+
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                anim.SetBool("isWalkingBack", false);
+            }
         }  
         else if (Input.GetKey(KeyCode.D))
         {    
             moveSpeed = speed;
             rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
             transform.rotation = Quaternion.LookRotation(Vector3.forward);
-            dirForward = true;           
+            dirForward = true;
+            anim.SetBool("isWalking", true);     
+        }
+        else if(Input.GetMouseButton(1)&&Input.GetKey(KeyCode.A)&& dirForward == false)
+        {
+            moveSpeed = speed;
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            anim.SetBool("isWalking", true);
+
         }
     }
 
@@ -97,6 +138,17 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.up * jumpVelocity;
             isGrounded = false;
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isWalkingBack", false);
+            anim.SetBool("isJumping", true);
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            anim.SetBool("isJumping", true);
+        }
+        else
+        {
+            anim.SetBool("isJumping", false);
         }
     }
 
@@ -121,6 +173,7 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Plattform")
         {
             transform.parent = collision.transform;
+            Debug.Log("Collision with Plattform");
         }
     }
 
@@ -130,6 +183,7 @@ public class PlayerMovement : MonoBehaviour
         if(collision.gameObject.tag == "Plattform")
         {
             transform.parent = null;
+            Debug.Log("Collision Exit Plattform");
         }
     }
 

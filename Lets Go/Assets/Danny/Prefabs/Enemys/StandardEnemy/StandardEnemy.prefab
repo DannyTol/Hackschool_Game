@@ -201,6 +201,8 @@ MonoBehaviour:
   enemyHealth: 100
   bulletDamage: 20
   speed: 1.5
+  coinsToPlayer: 5
+  pointsToPlayer: 20
   seePlayerDistance: 12.5
   timeForNextShot: 0
   timeForNextShotReload: 2

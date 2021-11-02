@@ -54,35 +54,37 @@ public class EnemyExplosiv : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Die();
-        }
+        } 
+    }
 
-        
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "BigWall")
         {
             //if (seePlayer == false)
             //{
-                if (collision.gameObject.tag == "Wall" && freeWayLeft == true || collision.gameObject.tag == "BigWall" && freeWayLeft == true)
-                {
-                    freeWayLeft = false;
-                    freeWayRight = true;
-                }
-                else
-                {
-                    freeWayRight = false;
-                    freeWayLeft = true;
-                }
+            if (collision.gameObject.tag == "Wall" && freeWayLeft == true || collision.gameObject.tag == "BigWall" && freeWayLeft == true)
+            {
+                freeWayLeft = false;
+                freeWayRight = true;
+            }
+            else
+            {
+                freeWayRight = false;
+                freeWayLeft = true;
+            }
             //}
 
             if (collision.gameObject.tag == "Wall" && seePlayer == true)
             {
-                    Destroy(collision.gameObject);
+                Destroy(collision.gameObject);
             }
 
-            
+
         }
     }
 
-    
+
     //EnemyExplosiv Death
     void Die()
     {
@@ -99,9 +101,11 @@ public class EnemyExplosiv : MonoBehaviour
     // EnemyExplosiv moves to Player if distance is right
     void GoToPlayer()
     {
+        
+        
         GameObject BigWall = GameObject.FindGameObjectWithTag("BigWall");
         float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position, transform.position);
-        float distanceWall = Vector3.Distance(BigWall.transform.position, transform.position);
+        /*float distanceWall = Vector3.Distance(BigWall.transform.position, transform.position);
 
         // Enemy checks if there is a Wall between him and Player
         if(distanceWall < distance)
@@ -111,7 +115,9 @@ public class EnemyExplosiv : MonoBehaviour
         else
         {
             canNotSeePlayer = false;
-        }
+            
+            
+        }*/
 
         if (distance <= targetDistance && canNotSeePlayer == false)
         {
