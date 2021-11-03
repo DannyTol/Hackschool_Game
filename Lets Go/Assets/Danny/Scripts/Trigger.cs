@@ -8,6 +8,7 @@ public class Trigger : MonoBehaviour
     public GameObject target;
     
     
+    
     // If collision with Player, Trigger destroys object
     private void OnTriggerEnter2D(Collider2D collision)
     {
