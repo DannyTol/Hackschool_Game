@@ -16,6 +16,7 @@ TagManager:
   - Enemy
   - PlattformStop
   - EnemyBullet
+  - DestroyWall
   layers:
   - Default
   - TransparentFX
