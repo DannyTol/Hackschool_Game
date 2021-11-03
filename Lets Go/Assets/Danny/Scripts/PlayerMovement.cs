@@ -29,7 +29,9 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     public Text coinText;
     public Text mediKitText;
-   
+
+    [Space]
+    public GameObject playerDamageSpritePrefab;
 
     private bool dirForward = true;
     private bool lookToForward;
@@ -172,6 +174,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Collision with EnemyExplosiv");
             playerHealth -= 25;
+            GameObject playerDamageSprite = Instantiate(playerDamageSpritePrefab);
+            playerDamageSprite.transform.position = gameObject.transform.position;
+            Destroy(playerDamageSprite, 0.1f);
+
 
             PlayerHealth();
         }
