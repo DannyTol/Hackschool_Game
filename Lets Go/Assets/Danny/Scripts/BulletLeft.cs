@@ -41,9 +41,6 @@ public class BulletLeft : MonoBehaviour
                 GameObject newEffect = Instantiate(effect);
                 newEffect.transform.position = gameObject.transform.position;
                 Destroy(newEffect, 0.15f);
-                GameObject newHole = Instantiate(Bullethole);
-                newHole.transform.position = collision.transform.position;
-                Destroy(newHole, 1);
             }
         }
     }

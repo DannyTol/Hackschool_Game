@@ -9,6 +9,10 @@ public class StandardEnemy : MonoBehaviour
     public float bulletDamage;
     public float speed;
 
+    [Space]
+    public int coinsToPlayer;
+    public int pointsToPlayer;
+
     
     [Space]
     public float seePlayerDistance;
@@ -17,6 +21,7 @@ public class StandardEnemy : MonoBehaviour
 
     [Space]
     public GameObject target;
+
     [Space]
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
@@ -48,7 +53,24 @@ public class StandardEnemy : MonoBehaviour
                 enemyHealth = 0;
                 Die();
             }
-        }  
+        }
+        
+        
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "BigWall")
+        {
+            Debug.Log("Enemy collision with Wall");
+            if (collision.gameObject.tag == "Wall" && freeWayLeft == true || collision.gameObject.tag == "BigWall" && freeWayLeft == true)
+            {
+                freeWayLeft = false;
+                freeWayRight = true;
+            }
+            else
+            {
+                freeWayRight = false;
+                freeWayLeft = true;
+            }
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -71,6 +93,9 @@ public class StandardEnemy : MonoBehaviour
 
     void Die()
     {
+        target.GetComponent<PlayerMovement>().coins += coinsToPlayer;
+        target.GetComponent<PlayerMovement>().points += pointsToPlayer;
+        Debug.Log("StandardEnemy died");
         Destroy(gameObject);
     }
 
@@ -97,7 +122,9 @@ public class StandardEnemy : MonoBehaviour
   
         if (distance <= seePlayerDistance && timeForNextShot == 0)
         {
-            speed = 0;
+            seePlayer = true;
+           
+
             Debug.Log("See Player");
             if (transform.position.x > target.transform.position.x)
             {
@@ -107,6 +134,8 @@ public class StandardEnemy : MonoBehaviour
                 newBullet.transform.position = shootPoint.transform.position;
                 Destroy(newBullet, 1.5f);
                 timeForNextShot = timeForNextShotReload;
+                
+                
             }
             if(transform.position.x < target.transform.position.x)
             {
@@ -116,13 +145,16 @@ public class StandardEnemy : MonoBehaviour
                 newBullet.transform.position = shootPoint.transform.position;
                 Destroy(newBullet, 1.5f);
                 timeForNextShot = timeForNextShotReload;
+                
             }
         }
-        if (distance >= seePlayerDistance || seePlayer == false)
+        else if (distance >= seePlayerDistance || seePlayer == false)
         {
+            
             speed = movespeed;
             Debug.Log("Can´t see Player");
             Move();
+
         }
     }
 
@@ -134,12 +166,14 @@ public class StandardEnemy : MonoBehaviour
             transform.Translate(-speed * Time.deltaTime, 0, 0);
             transform.rotation = Quaternion.LookRotation(Vector3.back);
             freeWayLeft = false;
+           
         }
         else if (freeWayLeft == true)
         {
             transform.Translate(-speed * Time.deltaTime, 0, 0);
             transform.rotation = Quaternion.LookRotation(Vector3.forward);
             freeWayRight = false;
+            
         }
     }
 }
