@@ -103,28 +103,19 @@ public class EnemyExplosiv : MonoBehaviour
     {
         
         
-        GameObject BigWall = GameObject.FindGameObjectWithTag("BigWall");
+        
         float distance = Vector3.Distance(FindObjectOfType<PlayerMovement>().transform.position, transform.position);
-        /*float distanceWall = Vector3.Distance(BigWall.transform.position, transform.position);
-
-        // Enemy checks if there is a Wall between him and Player
-        if(distanceWall < distance)
-        {
-            canNotSeePlayer = true;
-        }
-        else
-        {
-            canNotSeePlayer = false;
+        
             
             
-        }*/
+        
 
-        if (distance <= targetDistance && canNotSeePlayer == false)
+        if (distance <= targetDistance)
         {
             seePlayer = true;                
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, enemyHuntSpeed * Time.deltaTime);
         }
-        else if (distance > targetDistance || canNotSeePlayer == true)
+        else if (distance > targetDistance)
         {
             //seePlayer = false;
             EnemyMove();
