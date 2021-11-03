@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,7 +25,13 @@ public class PlayerMovement : MonoBehaviour
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
     public Transform shootPoint;
-   
+
+    [Space]
+    public Text coinText;
+    public Text mediKitText;
+
+    [Space]
+    public GameObject playerDamageSpritePrefab;
 
     private bool dirForward = true;
     private bool lookToForward;
@@ -45,6 +52,10 @@ public class PlayerMovement : MonoBehaviour
         Jump();
 
         MediKit();
+
+        Collect();
+
+       
     }
 
     // PlayerMovement
@@ -100,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
             transform.rotation = Quaternion.LookRotation(Vector3.forward);
             dirForward = true;
-            anim.SetBool("isWalking", true);     
+            anim.SetBool("isWalking", true);  
         }
         else if(Input.GetMouseButton(1)&&Input.GetKey(KeyCode.A)&& dirForward == false)
         {
@@ -163,6 +174,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Collision with EnemyExplosiv");
             playerHealth -= 25;
+            GameObject playerDamageSprite = Instantiate(playerDamageSpritePrefab);
+            playerDamageSprite.transform.position = gameObject.transform.position;
+            Destroy(playerDamageSprite, 0.1f);
+
+
+            PlayerHealth();
         }
         
     }
@@ -212,5 +229,25 @@ public class PlayerMovement : MonoBehaviour
                 playerHealth = 100;
             }
         }
+    }
+
+    void Collect()
+    {
+        coinText.text = coins.ToString();
+        mediKitText.text = mediKit.ToString();
+    }
+
+    void PlayerHealth()
+    {
+        if (playerHealth <= 0)
+        {
+            playerHealth = 0;
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Player is dead");
     }
 }
