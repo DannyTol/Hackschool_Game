@@ -6,11 +6,12 @@ public class PlayerDamageSprite : MonoBehaviour
 {
     public GameObject target;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+   private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            transform.parent = target.transform;
+            transform.parent = collision.transform;
+            transform.parent.rotation = transform.rotation = FindObjectOfType<PlayerMovement>().transform.rotation;
         }
     }
 
@@ -18,7 +19,8 @@ public class PlayerDamageSprite : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            transform.parent = target.transform;
+            transform.parent = collision.transform;
+            transform.parent.rotation = transform.rotation = FindObjectOfType<PlayerMovement>().transform.rotation;
         }
     }
 }
