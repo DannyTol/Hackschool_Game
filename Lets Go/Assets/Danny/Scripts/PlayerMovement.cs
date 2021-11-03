@@ -189,6 +189,13 @@ public class PlayerMovement : MonoBehaviour
 
             PlayerHealth();
         }
+
+        if(collision.gameObject.tag == "EnemyBullet")
+        {
+            GameObject playerDamageSprite = Instantiate(playerDamageSpritePrefab);
+            playerDamageSprite.transform.position = gameObject.transform.position;
+            Destroy(playerDamageSprite, 0.1f);
+        }
         
     }
 
