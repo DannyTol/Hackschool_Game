@@ -8,6 +8,9 @@ public class StandardEnemy : MonoBehaviour
     public float enemyHealth;
     public float bulletDamage;
     public float speed;
+    //Andreas Sound
+    public AudioSource audioSource;
+
 
     [Space]
     public int coinsToPlayer;
@@ -134,10 +137,13 @@ public class StandardEnemy : MonoBehaviour
                 newBullet.transform.position = shootPoint.transform.position;
                 Destroy(newBullet, 1.5f);
                 timeForNextShot = timeForNextShotReload;
-                
-                
+                //Andreas Sound
+                audioSource.Play();
+
+
+
             }
-            if(transform.position.x < target.transform.position.x)
+            if (transform.position.x < target.transform.position.x)
             {
                 transform.rotation = Quaternion.LookRotation(Vector3.back);
 
@@ -145,7 +151,9 @@ public class StandardEnemy : MonoBehaviour
                 newBullet.transform.position = shootPoint.transform.position;
                 Destroy(newBullet, 1.5f);
                 timeForNextShot = timeForNextShotReload;
-                
+                //Andreas Sound
+                audioSource.Play();
+
             }
         }
         else if (distance >= seePlayerDistance || seePlayer == false)

@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject bulletLeftPrefab;
     public GameObject bulletRightPrefab;
     public Transform shootPoint;
+    //Andreas Sound
+    public AudioSource audioSource;
 
     [Space]
     public Text coinText;
@@ -131,6 +133,9 @@ public class PlayerMovement : MonoBehaviour
             GameObject newLeftBullet = Instantiate(bulletLeftPrefab);
             newLeftBullet.transform.position = shootPoint.transform.position;
             Destroy(newLeftBullet, 0.75f);
+
+            //Andreas sound
+            audioSource.Play();
         }
 
         if (Input.GetMouseButtonDown(0) && dirForward == true)
@@ -139,6 +144,9 @@ public class PlayerMovement : MonoBehaviour
             GameObject newRightBullet = Instantiate(bulletRightPrefab);
             newRightBullet.transform.position = shootPoint.transform.position;
             Destroy(newRightBullet, 0.75f);
+
+            //Andreas Sound
+            audioSource.Play();
         }
     }
 
