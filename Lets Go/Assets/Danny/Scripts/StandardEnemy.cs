@@ -8,6 +8,8 @@ public class StandardEnemy : MonoBehaviour
     public float enemyHealth;
     public float bulletDamage;
     public float speed;
+    
+    [Space]
     //Andreas Sound
     public AudioSource audioSource;
 
