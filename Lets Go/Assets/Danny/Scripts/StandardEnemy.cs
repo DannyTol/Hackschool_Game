@@ -12,6 +12,7 @@ public class StandardEnemy : MonoBehaviour
     [Space]
     //Andreas Sound
     public AudioSource audioSource;
+    public AudioSource audioDamage;
 
 
     [Space]
@@ -52,6 +53,7 @@ public class StandardEnemy : MonoBehaviour
         {
             Debug.Log("Bullet hits Enemy");
             enemyHealth -= bulletDamage;
+            audioDamage.Play();
 
             if(enemyHealth <= 0)
             {
