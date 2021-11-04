@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2555540976882084459}
   - component: {fileID: 2555540976882084456}
   - component: {fileID: 2555540976882084457}
-  - component: {fileID: 3226489436699153143}
+  - component: {fileID: 5123195083992518858}
   m_Layer: 0
   m_Name: PlantEnemy
   m_TagString: Untagged
@@ -128,15 +128,16 @@ MonoBehaviour:
   getBulletDamage: 25
   coinsToPlayer: 10
   pointsToPlayer: 25
-  audio: {fileID: 3226489436699153143}
+  audio: {fileID: 0}
+  die: {fileID: 5123195083992518858}
   distanceToPlayer: 9
   startShoot: 0
   nextShoot: 1.5
-  target: {fileID: 0}
+  target: {fileID: 4725986803380686132, guid: 3bdad179e360ffb44b74dea52676632b, type: 3}
   PlantEnemyBulletLeftPrefab: {fileID: 6836013921825989716, guid: 299108b8a9298ff4d8ad24927992e02f, type: 3}
   PlantEnemyBulletRightPrefab: {fileID: 1652825879116617107, guid: d438efdb36916b349871181b5e2d35ff, type: 3}
   shootPoint: {fileID: 2555540978214618255}
---- !u!82 &3226489436699153143
+--- !u!82 &5123195083992518858
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,9 +147,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f4d670d36c066b743a6f10e5744cbc9a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5a9a2180242816e43950093bb555f79d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.05
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
