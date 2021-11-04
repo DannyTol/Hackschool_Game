@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,10 +28,13 @@ public class PlayerMovement : MonoBehaviour
     public Transform shootPoint;
     //Andreas Sound
     public AudioSource audioSource;
-
+    public AudioSource audioPain;
+    public AudioSource audioCoin;
+    public AudioSource audioMedikit;
     [Space]
     public Text coinText;
     public Text mediKitText;
+    public Text healthText;
 
     [Space]
     public GameObject playerDamageSpritePrefab;
@@ -56,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
         MediKit();
 
         Collect();
+
+        PlayerHealth();
 
        
     }
@@ -185,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
             GameObject playerDamageSprite = Instantiate(playerDamageSpritePrefab);
             playerDamageSprite.transform.position = gameObject.transform.position;
             Destroy(playerDamageSprite, 0.1f);
+            audioPain.Play();
 
 
             PlayerHealth();
@@ -195,6 +202,7 @@ public class PlayerMovement : MonoBehaviour
             GameObject playerDamageSprite = Instantiate(playerDamageSpritePrefab);
             playerDamageSprite.transform.position = gameObject.transform.position;
             Destroy(playerDamageSprite, 0.1f);
+            audioPain.Play();
         }
         
     }
@@ -228,6 +236,11 @@ public class PlayerMovement : MonoBehaviour
             Destroy(collision.gameObject);
             mediKit++;
         }
+
+        if(collision.gameObject.tag == "Coin")
+        {
+            audioCoin.Play();
+        }
     }
 
     // Player use Medikit 
@@ -238,6 +251,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Player use Medikit");
             mediKit -= 1; 
             playerHealth += 25;
+            audioMedikit.Play();
             
             if (playerHealth > 100)
             {
@@ -250,6 +264,7 @@ public class PlayerMovement : MonoBehaviour
     {
         coinText.text = coins.ToString();
         mediKitText.text = mediKit.ToString();
+        healthText.text = playerHealth.ToString();
     }
 
     void PlayerHealth()
@@ -264,5 +279,7 @@ public class PlayerMovement : MonoBehaviour
     void Die()
     {
         Debug.Log("Player is dead");
+        SceneManager.LoadScene(3);
+
     }
 }

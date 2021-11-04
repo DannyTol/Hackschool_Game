@@ -13,7 +13,7 @@ public class PlantEnemy : MonoBehaviour
     public int pointsToPlayer;
 
     [Space]
-    public AudioSource audio;
+    public AudioSource die;
     
     [Space]
     public float distanceToPlayer;
@@ -27,6 +27,7 @@ public class PlantEnemy : MonoBehaviour
     public GameObject PlantEnemyBulletLeftPrefab;
     public GameObject PlantEnemyBulletRightPrefab;
     public Transform shootPoint;
+
 
     
 
@@ -64,9 +65,11 @@ public class PlantEnemy : MonoBehaviour
     void Die()
     {
         Debug.Log("PlantEnemy is Dead");
+        die.Play();
         Destroy(gameObject);
         FindObjectOfType<PlayerMovement>().coins += coinsToPlayer;
         FindObjectOfType<PlayerMovement>().points += pointsToPlayer;
+        
     }
 
     
@@ -112,7 +115,7 @@ public class PlantEnemy : MonoBehaviour
             newBullet.transform.position = shootPoint.transform.position;
             Destroy(newBullet, 1.5f);
             startShoot = nextShoot;
-            audio.Play();
+           
         }
 
         if (target.transform.position.x > transform.position.x && startShoot == 0)
@@ -121,7 +124,7 @@ public class PlantEnemy : MonoBehaviour
             newBullet.transform.position = shootPoint.transform.position;
             Destroy(newBullet, 1.5f);
             startShoot = nextShoot;
-            audio.Play();
+           
         }
     }
 }

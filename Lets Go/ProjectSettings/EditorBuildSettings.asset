@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/EndMen\xFC.unity"
     guid: 7eba512a411404949bae0ec0f707d5ab
+  - enabled: 1
+    path: Assets/Scenes/Tutoriel.unity
+    guid: c0afc0097c2c11844a05773e6490b7bf
   m_configObjects: {}
